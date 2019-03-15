@@ -11,6 +11,7 @@
 * Classification Algorithms:
   * Naive Bayes
   * K-Nearest Neighbors
+  * Support Vector Machine
   * Logistic Regression
   * Decision Tree
   * Random Forest 
