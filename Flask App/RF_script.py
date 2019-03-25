@@ -25,14 +25,15 @@ def html_page():
         return html_file.read()
 
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predictor', methods=['POST'])
 def predictor():
-    data = flask.request.json
-    df = pd.DataFrame(data)
-    prediction = RF_fit.predict(df)
-    results = {"Predicted": list(prediction)}
-    return flask.jsonify(results)
-
+    if request.method == 'POST':
+        data = flask.request.json
+        df = pd.DataFrame(data)
+        prediction = RF_fit.predict(df)
+        results = {"Predicted": list(prediction)}
+        return flask.jsonify(results)
+    return render_template('RF_result.html',prediction=prediction)
 
 """
 @app.route('/predictor', methods=['POST'])
