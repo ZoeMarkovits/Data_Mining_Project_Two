@@ -24,7 +24,7 @@ def html_page():
     with open("RF_webpage.html", 'r') as html_file:
         return html_file.read()
 
-"""
+
 @app.route('/predict', methods=['POST'])
 def predictor():
     data = flask.request.json
@@ -32,8 +32,9 @@ def predictor():
     prediction = RF_fit.predict(df)
     results = {"Predicted": list(prediction)}
     return flask.jsonify(results)
-"""
 
+
+"""
 @app.route('/predictor', methods=['POST'])
 def predictor(input):
     to_predict = np.array(input).reshape(1,6)
@@ -52,7 +53,7 @@ def result():
         else:
             prediction='Academic Performance Low'
         return render_template("RF_result.html",prediction=prediction)
-
+"""
 
 
 # Run web app server
