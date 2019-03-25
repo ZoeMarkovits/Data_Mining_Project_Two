@@ -24,7 +24,7 @@ def html_page():
         return html_file.read()
 
 @app.route('/predict', methods=['POST'])
-def predict():
+def predictor():
     data = flask.request.json
     df = pd.DataFrame(data)
     prediction = RF_fit.predict(df)
