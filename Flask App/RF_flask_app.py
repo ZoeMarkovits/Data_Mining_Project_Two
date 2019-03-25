@@ -1,40 +1,41 @@
 import flask
-from flask import request
 from flask import Flask
-import numpy as np
-import pandas as pd
 import pickle
 
-# Loading the Model
+app = Flask(__name__)
 
+# Loading the Model
 with open('/Users/zoemarkovits/Documents/Grad School/Spring 2019/Data Mining/Project Two/pickle_jar/X.pkl', 'rb') as f:
     X = pickle.load(f)
 with open('/Users/zoemarkovits/Documents/Grad School/Spring 2019/Data Mining/Project Two/pickle_jar/y.pkl', 'rb') as f:
     y = pickle.load(f)
-
 with open('/Users/zoemarkovits/Documents/Grad School/Spring 2019/Data Mining/Project Two/pickle_jar/RF.pkl', 'rb') as f:
     RF = pickle.load(f)
 
-predictor = RF.fit(X,y)
+RF_fit = RF.fit(X,y)
 print(RF.score(X,y))
 print(RF.score(X,y))
 
+X
 
-# Running Predictor and Webpage
 
-app = Flask(__name__)
+# Defining predict function
 
-@app.route("/predict", methods=["POST"])
+@app.route('/')
+def html_page():
+    with open("RF_flask_app.html", 'r') as html_file:
+        return html_file.read()
+
+@app.route('/predict', methods = ['POST'])
 def predict():
-    y_pred = predictor.predict(X)
+    data = flask.request.json
+    x = np.array(data["example"]).reshape(-1,1)
 
+    y_pred = RF_fit.predict(x)
     results = {"Predicted": list(y_pred)}
-
     return flask.jsonify(results)
 
-    
 
 # Run web app server
-
-app.run(host='0.0.0.0')
-app.run(debug=True)
+if __name__ =='__main__':
+    app.run(debug=True)
