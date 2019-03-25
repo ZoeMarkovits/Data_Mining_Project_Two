@@ -1,10 +1,9 @@
 import flask
-from flask import Flask
 from flask import request
 import pickle
 import pandas as pd
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
 
 # Loading the Model
@@ -17,8 +16,6 @@ with open('/Users/zoemarkovits/Documents/Grad School/Spring 2019/Data Mining/Pro
 
 RF_fit = RF.fit(X,y)
 print(RF.score(X,y))
-print(RF.score(X,y))
-
 
 # Defining predict function
 @app.route('/')
@@ -26,11 +23,10 @@ def html_page():
     with open("RF_flask_app.html", 'r') as html_file:
         return html_file.read()
 
-@app.route('/predict', methods = ['POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
-    data = request.json
+    data = flask.request.json
     df = pd.DataFrame(data)
-
     prediction = RF_fit.predict(df)
     results = {"Predicted": list(prediction)}
     return flask.jsonify(results)
