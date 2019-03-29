@@ -22,14 +22,14 @@ RF_fit = RF.fit(X,y)
 RF_fit.predict(X)
 RF_fit.score(X,y)
 
-example = X[:1]
-example
-RF.predict(example)
+tester_example = X[:1]
+tester_example
+RF.predict(tester_example)
 
 @app.route('/')
-def html_page():
-    with open("index.html", 'r') as html_file:
-        return html_file.read()
+@app.route('/index')
+def index():
+    return flask.render_template('index.html')
 
 def ValuePredictor(to_predict_list):
     to_predict = np.array(to_predict_list).reshape(1,5)
@@ -37,22 +37,20 @@ def ValuePredictor(to_predict_list):
     result = loaded_model.predict(to_predict)
     return result[0]
 
-ValuePredictor(example)
+ValuePredictor(tester_example)
 
 @app.route('/result',methods = ['POST'])
 def result():
-    if request.method == 'POST':
-        to_predict_list = request.form.to_dict()
-        to_predict_list=list(to_predict_list.values())
-        to_predict_list = list(map(int, to_predict_list))
-        result = ValuePredictor(to_predict_list)
-        if int(result)==1:
-            prediction='Performance is High'
-        else:
-            prediction='Performance is Low'
-        return render_template("result.html",prediction=prediction)
-
-result(example)
+    #if request.method == 'POST':
+    to_predict_list = request.form.to_dict()
+    to_predict_list=list(to_predict_list.values())
+    to_predict_list = list(map(int, to_predict_list))
+    result = ValuePredictor(to_predict_list)
+    if int(result)==1:
+        prediction='Prediction: Performance is High'
+    else:
+        prediction='Prediction: Performance is Low'
+    return render_template("result.html",prediction=prediction)
 
 # Run web app server
 if __name__ == '__main__':
