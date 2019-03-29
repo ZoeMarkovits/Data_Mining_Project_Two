@@ -5,7 +5,7 @@
   <title>Random Forest Classifier</title>
   <h2>Academic Performance Prediction</h2>
   <b>Instructions: </b>
-  <p>Fill in the form to predict whether a student's performance will be low, medium or high.</p>
+  <p>Fill in the form to predict whether a student's performance will be low or high.</p>
   <style>
 			body{
 			   background-color: #b7d7e8;
@@ -30,7 +30,7 @@
 </head>
 <body>
 <div>
-  <form action="/predict" method="POST">
+  <form action="/result" method="POST">
     <label for="Raised_Hand">Raised_Hand</label>
     <input type="text" id="Raised_Hand" name="How many times did the student raise their hand in class?">
     <br>
@@ -45,12 +45,6 @@
     <br>
     <label for="Under_Seven">Under_Seven</label>
     <select id="Under_Seven" name="Was the student absent under seven times?">
-      <option value="0">No</option>
-      <option value="1">Yes</option>
-    </select>
-    <br>
-    <label for="Over_Seven">Over_Seven</label>
-    <select id="Over_Seven" name="Was the student absent over seven times?">
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
