@@ -18,4 +18,3 @@
   * AdaBoost
   * GradientBoost
 * Web App Built With Flask 
-   * 
